@@ -296,6 +296,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </button>
+            <h2 class="text-center text-rose-500 font-bold pacifico-font text-4xl mb-4 mt-2">Yayyy!</h2>
             <div class="rounded-2xl overflow-hidden">
                 <img id="surprise-gif"
                     src="https://i.pinimg.com/originals/57/e1/6f/57e16f2642326d5b8f627ea467121117.gif"
@@ -362,9 +363,9 @@
                 </h1>
             </div>
 
-            <p class="text-xl md:text-2xl text-rose-400 font-light max-w-lg mx-auto mb-4 leading-relaxed opacity-0"
+            <p class="text-3xl md:text-4xl text-rose-500 font-bold pacifico-font max-w-lg mx-auto mb-4 leading-relaxed opacity-0"
                 style="animation: fadeIn 1s ease-out 1.5s forwards;">
-                Just a little piece of art to remind you how amazing and loved you are.
+                Will you be my Valentine?
             </p>
 
             <div class="mb-[-25px] relative z-20 opacity-0" style="animation: fadeIn 1s ease-out 1.8s forwards;">
@@ -372,21 +373,27 @@
                     class="w-20 md:w-24 mx-auto hover:scale-110 transition-transform duration-300">
             </div>
 
-            <button onclick="revealSurprise()"
-                class="group relative px-8 py-4 bg-gradient-to-r from-rose-400 to-pink-500 text-white rounded-full font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 active:translate-y-0 pulse-btn overflow-hidden cursor-pointer">
-                <span class="relative z-10 flex items-center gap-2">
-                    Click for a Surprise
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 group-hover:animate-ping" viewBox="0 0 20 20"
-                        fill="currentColor">
-                        <path fill-rule="evenodd"
-                            d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 5a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0v-1H3a1 1 0 010-2h1V8a1 1 0 011-1zm5-5a1 1 0 011 1v1h1a1 1 0 010 2h-1v1a1 1 0 01-2 0V6h-1a1 1 0 010-2h1V3a1 1 0 011-1zm0 5a1 1 0 011 1v1h1a1 1 0 010 2h-1v1a1 1 0 01-2 0v-1h-1a1 1 0 010-2h1V8a1 1 0 011-1z"
-                            clip-rule="evenodd" />
-                    </svg>
-                </span>
-                <div
-                    class="absolute inset-0 h-full w-full bg-gradient-to-r from-pink-500 to-rose-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                </div>
-            </button>
+            <div class="flex gap-4 items-center justify-center w-full relative h-20">
+                <button id="yes-btn" onclick="revealSurprise()"
+                    class="group relative px-10 py-4 bg-gradient-to-r from-rose-400 to-pink-500 text-white rounded-full font-bold text-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 active:translate-y-0 pulse-btn overflow-hidden cursor-pointer z-10">
+                    <span class="relative z-10 flex items-center gap-2">
+                        Yes
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 group-hover:animate-ping"
+                            viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </span>
+                    <div
+                        class="absolute inset-0 h-full w-full bg-gradient-to-r from-pink-500 to-rose-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    </div>
+                </button>
+                <button id="no-btn"
+                    class="px-8 py-4 bg-white text-rose-500 border-2 border-rose-200 rounded-full font-bold text-lg shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer z-20">
+                    No
+                </button>
+            </div>
 
         </section>
 
@@ -765,6 +772,48 @@
             }, 400);
         }
         createFooterParticles();
+
+        const noBtn = document.getElementById('no-btn');
+        const yesBtn = document.getElementById('yes-btn');
+        const noTexts = ["Oh really?", "Try to catch me", "Haha", "Too slow!", "Nope!", "Just say Yes!"];
+        let interactionCount = 0;
+        const maxInteractions = 9;
+
+        if (noBtn && yesBtn) {
+            function handleNoInteraction() {
+                interactionCount++;
+
+                if (interactionCount >= maxInteractions) {
+                    noBtn.style.display = 'none';
+                    return;
+                }
+
+                const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+                const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+
+                noBtn.style.position = 'fixed';
+                noBtn.style.zIndex = '100';
+                noBtn.style.left = `${Math.max(0, Math.min(window.innerWidth - noBtn.offsetWidth, x))}px`;
+                noBtn.style.top = `${Math.max(0, Math.min(window.innerHeight - noBtn.offsetHeight, y))}px`;
+
+                const randomText = noTexts[Math.floor(Math.random() * noTexts.length)];
+                noBtn.innerText = randomText;
+
+                // Resize logic
+                const scaleNo = 1 - (interactionCount * 0.04);
+                const scaleYes = 1 + (interactionCount * 0.05);
+
+                noBtn.style.transform = `scale(${Math.max(0, scaleNo)})`;
+                noBtn.style.transition = 'all 0.3s ease';
+
+                yesBtn.style.transform = `scale(${scaleYes})`;
+                yesBtn.style.transition = 'transform 0.3s ease';
+            }
+
+            noBtn.addEventListener('mouseover', handleNoInteraction);
+            noBtn.addEventListener('touchstart', function (e) { e.preventDefault(); handleNoInteraction(); });
+            noBtn.addEventListener('click', function (e) { e.preventDefault(); handleNoInteraction(); });
+        }
 
     </script>
 </body>
