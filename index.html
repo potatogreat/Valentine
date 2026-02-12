@@ -16,10 +16,14 @@
         rel="stylesheet">
 
     <style>
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+        }
+
         body {
             font-family: 'Nunito', sans-serif;
             background: linear-gradient(135deg, #fff0f3 0%, #fff5f5 100%);
-            overflow-x: hidden;
             cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="%23f43f5e" stroke="white" stroke-width="1"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>') 16 16, auto;
         }
 
@@ -308,9 +312,9 @@
 
     <div id="bg-hearts-container" class="fixed inset-0 pointer-events-none overflow-hidden h-full w-full"></div>
 
-    <div class="absolute top-0 right-0 z-0 w-56 md:w-80 lg:w-96 pointer-events-none opacity-90">
+    <div class="absolute top-0 right-0 z-0 w-56 md:w-80 lg:w-96 pointer-events-none opacity-90 overflow-hidden">
         <img src="https://i.pinimg.com/originals/f9/ee/5e/f9ee5e37531392c32b0d08d7062bb030.gif" alt="Sakura Branch"
-            class="w-full transform translate-x-8 -translate-y-4">
+            class="w-full transform translate-x-4 md:translate-x-8 -translate-y-4">
     </div>
 
     <main class="container mx-auto px-4 py-8 min-h-screen flex flex-col items-center relative z-10">
@@ -378,8 +382,8 @@
                     class="group relative px-10 py-4 bg-gradient-to-r from-rose-400 to-pink-500 text-white rounded-full font-bold text-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 active:translate-y-0 pulse-btn overflow-hidden cursor-pointer z-10">
                     <span class="relative z-10 flex items-center gap-2">
                         Yes
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 group-hover:animate-ping"
-                            viewBox="0 0 20 20" fill="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 group-hover:animate-ping" viewBox="0 0 20 20"
+                            fill="currentColor">
                             <path fill-rule="evenodd"
                                 d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
                                 clip-rule="evenodd" />
@@ -779,10 +783,10 @@
         let interactionCount = 0;
         const maxInteractions = 9;
 
-        if (noBtn && yesBtn) {
+        if(noBtn && yesBtn) {
             function handleNoInteraction() {
                 interactionCount++;
-
+                
                 if (interactionCount >= maxInteractions) {
                     noBtn.style.display = 'none';
                     return;
@@ -790,18 +794,18 @@
 
                 const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
                 const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-
+                
                 noBtn.style.position = 'fixed';
                 noBtn.style.zIndex = '100';
                 noBtn.style.left = `${Math.max(0, Math.min(window.innerWidth - noBtn.offsetWidth, x))}px`;
                 noBtn.style.top = `${Math.max(0, Math.min(window.innerHeight - noBtn.offsetHeight, y))}px`;
-
+                
                 const randomText = noTexts[Math.floor(Math.random() * noTexts.length)];
                 noBtn.innerText = randomText;
 
                 // Resize logic
-                const scaleNo = 1 - (interactionCount * 0.04);
-                const scaleYes = 1 + (interactionCount * 0.05);
+                const scaleNo = 1 - (interactionCount * 0.04); 
+                const scaleYes = 1 + (interactionCount * 0.05); 
 
                 noBtn.style.transform = `scale(${Math.max(0, scaleNo)})`;
                 noBtn.style.transition = 'all 0.3s ease';
@@ -811,8 +815,8 @@
             }
 
             noBtn.addEventListener('mouseover', handleNoInteraction);
-            noBtn.addEventListener('touchstart', function (e) { e.preventDefault(); handleNoInteraction(); });
-            noBtn.addEventListener('click', function (e) { e.preventDefault(); handleNoInteraction(); });
+            noBtn.addEventListener('touchstart', function(e) { e.preventDefault(); handleNoInteraction(); });
+            noBtn.addEventListener('click', function(e) { e.preventDefault(); handleNoInteraction(); });
         }
 
     </script>
